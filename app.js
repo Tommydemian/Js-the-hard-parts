@@ -13,16 +13,16 @@ blockFor1Sec()
 
 import axios from "axios"
 
-const futureData = axios.get('https://randomuser.me/api/?results=2')
-console.log(futureData) // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
+let results 
+ axios.get('https://randomuser.me/api/')
+.then(res => console.log(res.data.results[0].gender))
+ // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
 
+
+setTimeout(printHello, 1000)
 
 console.log('Me First'); // First to come out. 
 
-// Two Pronged Solution => Promise.
-function display(data){
-    console.log(data);
-};
 
 
 

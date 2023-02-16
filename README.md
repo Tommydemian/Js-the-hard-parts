@@ -46,9 +46,46 @@ onCompletion => DONE => fx() goes back to the [callbackQueue] => `Js Engine Feat
  2. path.
  3. method. 
 
+ <script>
+import axios from "axios"
+
+const res = axios.get('https://randomuser.me/api/?results=2')
+.then(console.log(res.data))
+//console.log(futureData) // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
+
+function display(data){
+    console.log(data);
+};
+futureData.then(display)
+ </script>
+
+### Whats .then actually doing? 
+ [.then] => what's .then doing really? => The promise created an object in Js with an {onFulfillment: vallue} => that value will be stepped with the right-hand-side of the .then 
+
+ Which will be the order: 
+  <script>
+import axios from "axios"
+
+let results 
+ axios.get('https://randomuser.me/api/')
+.then(res => console.log(res.data.results[0].gender))
+ // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
+
+
+setTimeout(printHello, 1000)
+
+console.log('Me First'); // First to come out. 
+
+//order:
+// 1) Me first! => codigo sincrono.
+// 2) Promise.then => Promise it's a 2 pronged facade function that's generates a js Object.
+// 3) setTimeout(function() {) => Nothing happens in js => All the work is done in the Browser.
+</script>
 
 
 
+
+# UNSPLASH API Reference:
 Redirect URI
 (optional for applications that are only using the 'Public' permissions)
 urn:ietf:wg:oauth:2.0:oob
