@@ -137,3 +137,77 @@ Words.prototype[Symbol.iterator] = function() {
 const string = 'Hello World';
 
 console.log(string.prototype)
+
+// CHALLENGE 7
+// Build a function that walks through an array and returns the element concatenated with the string "was found after index x", where x is the previous index.
+// Note: if it is the first element it should say that it is the first
+
+function valueAndPrevIndex(array){
+  let index = 0; 
+  const iterator = {
+    sentence: function(){
+      // position
+      const value = array[index - 1] == undefined 
+      ? `${array[index]} it is the first` 
+      : `${array[index]} was found after index ${index - 1}`;
+      index ++;
+      return value;
+      
+    }
+  }
+  return iterator
+
+}
+
+const returnedSentence = valueAndPrevIndex([4,5,6])
+console.log(returnedSentence.sentence());
+console.log(returnedSentence.sentence());
+console.log(returnedSentence.sentence());
+
+// CHALLENGE 8
+// Write a function that will console.log "hello there", or "gibberish", every three seconds depending on if the word passed into the function is 'english'.
+// Do not use any type of loop constructor and only make the call to createConversation once.
+
+// function* createConversation(string) {
+//   function isEnglish(){
+//     if (string == 'english') {
+//       console.log('hello there')
+//     } else console.log('gibberish')
+//   }
+//   while (true)
+//   isEnglish();
+//   yield new Promise(resolve => {
+//     setTimeout(resolve, 3000)
+//   });
+
+// }
+
+function* createConversation(string) {
+  function isEnglish() {
+    if (string === 'english') {
+      console.log('hello there');
+    } else {
+      console.log('gibberish');
+    }
+  }
+  let count = 0;
+  while (count < 10) {
+    isEnglish();
+    yield new Promise((resolve) => {
+      setTimeout(resolve, 3000);
+    });
+    count++;
+  }
+  return 'Conversation ended';
+}
+
+const conversation = createConversation('english');
+
+// This loop will call `conversation.next()` 10 times, and then stop the generator
+for (let i = 0; i < 10; i++) {
+  conversation.next();
+}
+conversation.return();
+
+
+

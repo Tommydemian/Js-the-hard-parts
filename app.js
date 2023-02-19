@@ -13,17 +13,25 @@ blockFor1Sec()
 
 import axios from "axios"
 
-let results 
-let gender
- axios.get('https://randomuser.me/api/')
-.then(response => {
-  results = response.data.results
-  gender = results[0].gender
-  console.log(gender)
-})
-.catch(err => console.log(err));
+function* getUsers() {
+  try {
+    const response = yield axios.get('https://randomuser.me/api/?results=5') // yield suspends the execution context untiil the data from the .get is resolved.
+    const results = response.data.results
+    for (const user of results) {
+      yield user
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-console.log(gender); // Esto esta corriendo Syncronic => No hay data => undefined
+
+const userGenerator = getUsers()
+
+userGenerator.next().value.then(res => {
+  console.log(res.data.results[0])
+})
+
 
  // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
 

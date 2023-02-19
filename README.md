@@ -234,3 +234,19 @@ console.log(element2)
 
 ### yield:
 - super powerfull [keyword] => its a [return] statement esentially. but is does suspend/ PAUSE the execution context.
+
+## GENERATE FUCNTIONS WITH DYNAMIC DATA:    
+<script>
+function *createDynamicFlow(){
+const num = 10;
+const newNum = yield num;
+yield 5 + newNum;
+yield 6;
+}
+
+const returnNextElement = createDynamicFlow() // Gives back the object with the .next() method
+
+const element1 = returnNextElement.next() // .next is a command to begin the execution context of createDynamicFlow()
+const element2 = returnNextElement.next()
+</script>
+
