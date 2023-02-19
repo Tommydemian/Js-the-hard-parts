@@ -14,8 +14,17 @@ blockFor1Sec()
 import axios from "axios"
 
 let results 
+let gender
  axios.get('https://randomuser.me/api/')
-.then(res => console.log(res.data.results[0].gender))
+.then(response => {
+  results = response.data.results
+  gender = results[0].gender
+  console.log(gender)
+})
+.catch(err => console.log(err));
+
+console.log(gender); // Esto esta corriendo Syncronic => No hay data => undefined
+
  // => Promise { <pending> }  value: undefined  hiddenProp = onFullfillment:[f(x)] => the trigger automatically after value gets populated with whatever comes from the request
 
 
